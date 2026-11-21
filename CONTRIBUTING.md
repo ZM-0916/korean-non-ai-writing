@@ -21,7 +21,7 @@
 | 기각 | 반영하지 않음. 이유를 댓글로 남김 |
 | 자동 수집 | 매일 조사 작업이 올린 표현 사전 후보 |
 
-`채택`된 이슈만 아래 절차로 반영하고, 반영 PR은 메인테이너가 병합한다.
+`채택`된 이슈는 매일 실행되는 반영 작업이 `docs/apply-adopted.md` 절차로 반영한다. 테스트를 통과해야 main에 들어간다.
 
 ## 패턴 추가 절차
 
@@ -29,7 +29,7 @@
 2. 정규식으로 잡을 수 있으면 `scripts/scan.py`의 `RULES`에 추가한다.
 3. `tests/fixtures/`에 걸려야 하는 문장과 걸리면 안 되는 문장을 넣고 `tests/expected.json`을 갱신한다.
 4. `python3 tests/run_tests.py`가 전부 PASS인지 확인한다.
-5. `CHANGELOG.md`에 기록하고 `SKILL.md`의 버전을 올린다.
+5. `CHANGELOG.md`에 기록하고 버전을 올린다. `SKILL.md`, `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, CHANGELOG의 버전이 같아야 테스트가 통과한다. 버전이 오르지 않으면 설치본이 갱신되지 않는다.
 
 ## 표현 사전(M 범주)
 

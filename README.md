@@ -21,15 +21,21 @@
 
 ## 설치
 
-**claude.ai / Claude 데스크톱**
-1. 이 저장소에서 `skills/korean-non-ai-writing` 폴더를 ZIP으로 압축한다.
-2. Customize > Skills에서 업로드한다.
+**Claude 앱(웹, 데스크톱): 자동 업데이트 권장**
+1. Customize > Plugins에서 Add marketplace를 누르고 `ZM-0916/korean-non-ai-writing`을 입력한다.
+2. 목록에 나온 korean-non-ai-writing 플러그인을 설치한다.
+3. 마켓플레이스의 Sync automatically를 켠다. 이후 이 저장소가 바뀌면 설치본도 따라 바뀐다.
+
+플러그인은 계정에 저장되므로 채팅, Cowork, Claude Code에서 함께 쓰인다. 따로 부르지 않아도 한국어로 글을 쓸 때 적용된다.
 
 **Claude Code**
 ```
-git clone https://github.com/ZM-0916/korean-non-ai-writing.git
-cp -r korean-non-ai-writing/skills/korean-non-ai-writing ~/.claude/skills/
+/plugin marketplace add ZM-0916/korean-non-ai-writing
+/plugin install korean-non-ai-writing@korean-non-ai-writing
 ```
+
+**스킬만 따로 쓰기**
+`skills/korean-non-ai-writing` 폴더를 ZIP으로 묶어 Customize > Skills에서 업로드한다. 이 방식은 자동 업데이트가 되지 않는다.
 
 ## 사용
 
@@ -60,6 +66,8 @@ skills/korean-non-ai-writing/
 examples/           장르별 원문 → 결과 예시
 tests/              스캔 회귀 테스트 (python3 tests/run_tests.py)
 docs/daily-research.md  매일 표현 조사 절차
+docs/apply-adopted.md   채택 항목 반영 절차
+.claude-plugin/         플러그인, 마켓플레이스 정의
 ```
 
 ## 기여
