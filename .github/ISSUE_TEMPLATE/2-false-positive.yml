@@ -1,0 +1,25 @@
+name: 오탐 제보
+description: 사람이 쓴 자연스러운 글인데 AI 티로 걸린 경우
+title: "[오탐] "
+labels: ["제보", "오탐"]
+body:
+  - type: textarea
+    id: sentence
+    attributes:
+      label: 걸린 문장
+    validations:
+      required: true
+  - type: input
+    id: pattern
+    attributes:
+      label: 걸린 패턴 ID
+      placeholder: 예) C7
+  - type: dropdown
+    id: genre
+    attributes:
+      label: 장르
+      options: ["G1 일상·SNS", "G2 블로그·에세이", "G3 업무 문서", "G4 이메일·메시지", "G5 자소서·지원서", "G6 슬라이드", "G7 광고 카피", "G8 학술·기술·공문"]
+  - type: textarea
+    id: why
+    attributes:
+      label: 자연스러운 이유

@@ -1,0 +1,35 @@
+name: 새 패턴 제보
+description: AI 티로 보이는 한국어 표현을 제보합니다
+title: "[패턴] "
+labels: ["제보", "패턴"]
+body:
+  - type: input
+    id: expression
+    attributes:
+      label: 표현
+      placeholder: 예) ~라는 점에서 주목할 만하다
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: 실제 예문 (2개 이상)
+      description: AI가 실제로 쓴 문장을 그대로 붙여 주세요
+    validations:
+      required: true
+  - type: dropdown
+    id: model
+    attributes:
+      label: 출력한 모델
+      options: ["Claude", "ChatGPT", "Gemini", "기타", "모름"]
+    validations:
+      required: true
+  - type: dropdown
+    id: genre
+    attributes:
+      label: 장르
+      options: ["G1 일상·SNS", "G2 블로그·에세이", "G3 업무 문서", "G4 이메일·메시지", "G5 자소서·지원서", "G6 슬라이드", "G7 광고 카피", "G8 학술·기술·공문"]
+  - type: textarea
+    id: fix
+    attributes:
+      label: 이렇게 고치면 자연스럽다 (선택)

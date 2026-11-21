@@ -1,0 +1,23 @@
+name: Claude 말버릇 제보
+description: Claude 한국어 출력에서 반복되는 표현 (L 범주)
+title: "[Claude] "
+labels: ["제보", "Claude 말버릇"]
+body:
+  - type: input
+    id: expression
+    attributes:
+      label: 표현
+      placeholder: 예) 결이 다르다
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: 실제 예문
+    validations:
+      required: true
+  - type: dropdown
+    id: freq
+    attributes:
+      label: 체감 빈도
+      options: ["대화마다 나옴", "자주", "가끔"]
