@@ -6,6 +6,7 @@
       cat 파일.txt | python3 scan.py - [--json]
 """
 import json
+import pathlib
 import re
 import statistics
 import sys
@@ -48,17 +49,18 @@ RULES = [
     ("H1", "S2", "문두 접속사", r"(^|[.!?]\s+)(또한|따라서|나아가|더불어|게다가|아울러|한편)"),
     ("H2", "S2", "이는 ~ 반복", r"(^|[.!?]\s+)이는\s"),
     ("H3", "S2", "즉 남발", r"(^|\s)즉,?\s"),
-    ("I2", "S2", "점·바 형식명사", r"(주목할|중요한|눈여겨볼)\s?점은|바와\s?같이"),
+    ("H4", "S2", "끊고 접속부사로 잇기", r"[.!?]\s+(그래서|그러므로|그러니까|그렇기\s?때문에|그\s?결과로?)\s"),
+    ("I2", "S2", "점, 바 형식명사", r"(주목할|중요한|눈여겨볼)\s?점은|바와\s?같이"),
     ("I3", "S2", "~라는 것이다", r"라는\s?것(이다|입니다)"),
     ("I4", "S2", "~것이 중요하다/필요하다", r"것이\s?(중요|필요)"),
     ("I5", "S2", "무주체 판정", r"다는\s?(분석|평가|전망|지적)(이다|입니다)"),
     ("J1", "S2", "볼드", r"\*\*[^*\n]+\*\*"),
-    ("J3", "S2", "대시", r"[—–]"),
-    ("J5", "S1", "이모지·화살표 장식", r"[\U0001F300-\U0001FAFF☀-➿]|[→⇒➡]"),
-    ("K1", "S1", "챗봇 인사·마무리", r"좋은\s?질문|도움이\s?(되셨|되었)(기를|길|으면)|궁금한\s?(점|사항)(이|은)"),
+    ("J3", "S1", "엠대시, 엔대시, 중앙점(절대 금지)", r"[—–·‧・]"),
+    ("J5", "S1", "이모지, 화살표 장식", r"[\U0001F300-\U0001FAFF☀-➿]|[→⇒➡]"),
+    ("K1", "S1", "챗봇 인사, 마무리", r"좋은\s?질문|도움이\s?(되셨|되었)(기를|길|으면)|궁금한\s?(점|사항)(이|은)"),
     ("K2", "S1", "지식 한계 면책", r"최신\s?정보(와|는)\s?다를|학습\s?데이터\s?기준"),
     ("K3", "S1", "아부하는 톤", r"(훌륭한|멋진)\s?(아이디어|계획|생각|질문)"),
-    ("K4", "S1", "예고·연출된 솔직함", r"지금부터|솔직히\s?말하면|자,\s?이제|알아보겠습니다|살펴보겠습니다"),
+    ("K4", "S1", "예고, 연출된 솔직함", r"지금부터|솔직히\s?말하면|자,\s?이제|알아보겠습니다|살펴보겠습니다"),
     ("K5", "S1", "변경 이력 서술", r"(수정|개선|다듬은)\s?(한\s)?(버전|글)입니다"),
     ("L1", "S1", "~를 먼저 본다", r"[을를]\s?먼저\s?(본다|봅니다|보자|보겠|살펴)|부터\s?(본다|봅니다|보자)(?=[\s.,]|$)|먼저\s?(\S+\s){0,3}?\S*[을를]\s?(본다|봅니다|보자|보겠|살펴)"),
     ("L2", "S1", "축 비유", r"(핵심|중심|주요|하나의|두|세|네|다섯)\s?(가지\s?)?축|[을를]\s?축으로"),
@@ -67,8 +69,33 @@ RULES = [
     ("L5", "S2", "지점", r"(이|그|흥미로운|중요한)\s?지점"),
     ("L6", "S2", "결론부터 말하면", r"결론부터\s?말하면|한\s?줄로\s?(요약|정리)"),
     ("L7", "S2", "~하는 셈이다", r"셈(이다|입니다)"),
-    ("L8", "S2", "레이어·프레임", r"레이어|프레임"),
+    ("L8", "S2", "레이어, 프레임", r"레이어|프레임"),
 ]
+
+LEXICON = pathlib.Path(__file__).resolve().parent.parent / "references" / "lexicon.md"
+
+
+def load_lexicon():
+    """references/lexicon.md 표에서 탐지 정규식을 읽는다. 확정은 S1, 후보는 S2."""
+    rules = []
+    if not LEXICON.exists():
+        return rules
+    for line in LEXICON.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("| M"):
+            continue
+        cells = [c.strip() for c in re.split(r"(?<!\\)\|", line)[1:-1]]
+        if len(cells) < 6:
+            continue
+        rid, status, target, bad, good, pat = cells[:6]
+        pat = pat.strip("`").replace("\\|", "|")
+        if not pat:
+            continue
+        sev = "S1" if status == "확정" else "S2"
+        rules.append((rid, sev, f"{target}: {bad} → {good}", pat))
+    return rules
+
+
+RULES += load_lexicon()
 
 # 학술 용어로서의 축은 L2에서 제외
 AXIS_EXCEPT = re.compile(r"(HPA|장-?뇌|좌표|[xyzXYZ]|시상하부|뇌하수체|부신|세로|가로|회전)\s?축")
@@ -182,7 +209,7 @@ def main():
     print(f"예비 등급 {g} (S1 {s1}건, S2 {s2}건)  지표 {metrics}")
     print("후보일 뿐이다. 판정은 SKILL.md §3 원칙과 장르 예외로 한다.\n")
     for f in sorted(findings, key=lambda x: (not x["flag"], x["severity"], x["id"])):
-        mark = "●" if f["flag"] else "·"
+        mark = "●" if f["flag"] else "○"
         ex = " | ".join(f["samples"])
         print(f"{mark} {f['id']:<4} {f['severity']} {f['desc']} ×{f['count']} (문단 최대 {f['para_max']})  {ex}")
 

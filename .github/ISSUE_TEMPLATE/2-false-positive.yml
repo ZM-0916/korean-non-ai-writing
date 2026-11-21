@@ -18,7 +18,7 @@ body:
     id: genre
     attributes:
       label: 장르
-      options: ["G1 일상·SNS", "G2 블로그·에세이", "G3 업무 문서", "G4 이메일·메시지", "G5 자소서·지원서", "G6 슬라이드", "G7 광고 카피", "G8 학술·기술·공문"]
+      options: ["G1 일상, SNS", "G2 블로그, 에세이", "G3 업무 문서", "G4 이메일, 메시지", "G5 자소서, 지원서", "G6 슬라이드", "G7 광고 카피", "G8 학술, 기술, 공문"]
   - type: textarea
     id: why
     attributes:

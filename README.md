@@ -15,7 +15,8 @@
 | 장르 | 8개 장르별 적용 강도 표(슬라이드, 광고 카피, 자소서 포함) | 산문 위주 |
 | 카피 기법 | 대비 훅, 셋 묶음 같은 카피 정석 기법은 1회 허용 | 일괄 AI 티로 처리 |
 | Claude 말버릇 | "~를 먼저 본다", "축" 비유 등 Claude 출력 특유 표현을 별도 범주로 관리 | 없음 |
-| 규제 업종 | 의료·화장품·금융 카피의 과장 표현에 `[규정 확인]` 표시 | 없음 |
+| 규제 업종 | 의료, 화장품, 금융 카피의 과장 표현에 `[규정 확인]` 표시 | 없음 |
+| 표현 사전 | 대상과 어울리는 국내 표현을 매일 조사해 보강(`references/lexicon.md`) | 없음 |
 | 회귀 테스트 | 스캔 스크립트 + 오탐 방지 테스트 | 일부만 |
 
 ## 설치
@@ -46,7 +47,7 @@ python3 skills/korean-non-ai-writing/scripts/scan.py 글.txt
 ## 하지 않는 것
 
 - AI 탐지기 우회. 오타 넣기나 번역기 왕복처럼 글을 망치는 기법은 쓰지 않는다.
-- 표절·대필 은폐, 학업·채용·심사 절차 우회.
+- 표절, 대필 은폐, 학업, 채용, 심사 절차 우회.
 - 사실 확인과 출처 보강. 문체만 다룬다.
 
 ## 구조
@@ -54,9 +55,11 @@ python3 skills/korean-non-ai-writing/scripts/scan.py 글.txt
 ```
 skills/korean-non-ai-writing/
   SKILL.md          스킬 본체 (패턴 카탈로그 A~L, 장르 규칙, 절차)
-  scripts/scan.py   정규식 1차 스캔
+  scripts/scan.py   정규식 1차 스캔 (표현 사전도 읽음)
+  references/lexicon.md  표현 사전
 examples/           장르별 원문 → 결과 예시
 tests/              스캔 회귀 테스트 (python3 tests/run_tests.py)
+docs/daily-research.md  매일 표현 조사 절차
 ```
 
 ## 기여
@@ -70,8 +73,8 @@ tests/              스캔 회귀 테스트 (python3 tests/run_tests.py)
 - [blader/humanizer](https://github.com/blader/humanizer): Wikipedia "Signs of AI writing" 기반 26개 패턴
 - [epoko77-ai/im-not-ai](https://github.com/epoko77-ai/im-not-ai): 한글 AI 티 분류 체계, 심각도, 변경률 가드
 - [IsaacEryn/humanizer-ko](https://github.com/IsaacEryn/humanizer-ko): 한국어 정상 관습 오탐 방지
-- [calintzy/hangeul-deai](https://github.com/calintzy/hangeul-deai): 화자·독자 관계, 탐지 회피 배제 원칙
-- [dotoridot/korean-humanizer](https://github.com/dotoridot/korean-humanizer): 금지어·선호어 지정
+- [calintzy/hangeul-deai](https://github.com/calintzy/hangeul-deai): 화자, 독자 관계, 탐지 회피 배제 원칙
+- [dotoridot/korean-humanizer](https://github.com/dotoridot/korean-humanizer): 금지어, 선호어 지정
 - [hjongc/humanizer-kr](https://github.com/hjongc/humanizer-kr): 장르별 처리
 - [DaleSeo/korean-skills](https://github.com/DaleSeo/korean-skills): 쉼표 패턴 근거
 

@@ -70,5 +70,31 @@
     "max_count": {
       "L2": 1
     }
+  },
+  "symbols_lexicon.txt": {
+    "must_flag": [
+      "J3",
+      "M1"
+    ],
+    "must_detect": [
+      "H4",
+      "M2"
+    ]
+  },
+  "flowing_ok.txt": {
+    "must_not_flag": [
+      "J3",
+      "M1",
+      "H4"
+    ],
+    "max_count": {
+      "H4": 0,
+      "J3": 0,
+      "M1": 0
+    },
+    "grade_in": [
+      "A",
+      "B"
+    ]
   }
 }
