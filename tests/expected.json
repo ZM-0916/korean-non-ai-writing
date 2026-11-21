@@ -1,0 +1,74 @@
+{
+  "ai_report.txt": {
+    "must_flag": [
+      "D1",
+      "A3",
+      "D2",
+      "D4",
+      "D3",
+      "K1",
+      "K4",
+      "H1",
+      "L1",
+      "L2"
+    ],
+    "grade_in": [
+      "C",
+      "D"
+    ],
+    "must_detect": [
+      "H2",
+      "D6",
+      "D11",
+      "C7",
+      "A14"
+    ]
+  },
+  "human_memo.txt": {
+    "must_not_flag": [
+      "D1",
+      "D2",
+      "D4",
+      "K1",
+      "C1",
+      "L1",
+      "L2",
+      "A3",
+      "A6"
+    ],
+    "grade_in": [
+      "A",
+      "B"
+    ]
+  },
+  "formal_notice.txt": {
+    "must_not_flag": [
+      "D1",
+      "D2",
+      "D4",
+      "K1",
+      "A6",
+      "L1",
+      "L2"
+    ],
+    "grade_in": [
+      "A",
+      "B"
+    ]
+  },
+  "claude_tics.txt": {
+    "must_flag": [
+      "L1",
+      "L2"
+    ],
+    "must_detect": [
+      "L4",
+      "L5",
+      "L6",
+      "L7"
+    ],
+    "max_count": {
+      "L2": 1
+    }
+  }
+}
