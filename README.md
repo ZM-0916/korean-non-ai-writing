@@ -27,7 +27,7 @@
 
 **Claude Code**
 ```
-git clone https://github.com/<owner>/korean-non-ai-writing.git
+git clone https://github.com/ZM-0916/korean-non-ai-writing.git
 cp -r korean-non-ai-writing/skills/korean-non-ai-writing ~/.claude/skills/
 ```
 
