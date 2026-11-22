@@ -128,5 +128,22 @@
     "max_count": {
       "M4": 0
     }
+  },
+  "blur_weak_once.txt": {
+    "must_detect": [
+      "M5"
+    ],
+    "must_not_flag": [
+      "M5",
+      "M4"
+    ]
+  },
+  "blur_weak_many.txt": {
+    "must_flag": [
+      "M5"
+    ],
+    "must_not_flag": [
+      "M4"
+    ]
   }
 }
