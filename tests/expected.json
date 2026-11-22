@@ -96,5 +96,21 @@
       "A",
       "B"
     ]
+  },
+  "close_bad.txt": {
+    "must_flag": [
+      "L9"
+    ],
+    "min_count": {
+      "L9": 2
+    }
+  },
+  "close_ok.txt": {
+    "must_not_flag": [
+      "L9"
+    ],
+    "max_count": {
+      "L9": 0
+    }
   }
 }

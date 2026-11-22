@@ -26,6 +26,9 @@ for name, exp in expected.items():
     for rid in exp.get("must_not_flag", []):
         if rid in flagged:
             errs.append(f"오탐 {rid}")
+    for rid, mn in exp.get("min_count", {}).items():
+        if counts.get(rid, 0) < mn:
+            errs.append(f"{rid} {counts.get(rid, 0)}건 < 최소 {mn}")
     for rid, mx in exp.get("max_count", {}).items():
         if counts.get(rid, 0) > mx:
             errs.append(f"{rid} {counts[rid]}건 > 허용 {mx}")

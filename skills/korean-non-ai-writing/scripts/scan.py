@@ -70,6 +70,7 @@ RULES = [
     ("L6", "S2", "결론부터 말하면", r"결론부터\s?말하면|한\s?줄로\s?(요약|정리)"),
     ("L7", "S2", "~하는 셈이다", r"셈(이다|입니다)"),
     ("L8", "S2", "레이어, 프레임", r"레이어|프레임"),
+    ("L9", "S1", "절차나 일을 닫는다", r"(절차|단계|과정|작업|업무|논의|이야기|대화|질문|루프|고리|사이클|프로세스|세션|챕터|건)(을|를|은|는|도)?\s(\S+\s){0,3}?닫(는|고|았|자|아|으며|을|기|습)"),
 ]
 
 LEXICON = pathlib.Path(__file__).resolve().parent.parent / "references" / "lexicon.md"
@@ -96,6 +97,9 @@ def load_lexicon():
 
 
 RULES += load_lexicon()
+
+# 실제로 닫는 대상이 "닫" 바로 앞에 오면 L9에서 제외
+CLOSE_EXCEPT = re.compile(r"(문|창|창문|탭|앱|창구|가게|매장|점포|계좌|이슈|PR|뚜껑|입)(을|를|은|는|도)?\s?닫")
 
 # 학술 용어로서의 축은 L2에서 제외
 AXIS_EXCEPT = re.compile(r"(HPA|장-?뇌|좌표|[xyzXYZ]|시상하부|뇌하수체|부신|세로|가로|회전)\s?축")
@@ -124,6 +128,8 @@ def scan(text):
         for p in paras:
             hits = []
             for m in rx.finditer(p):
+                if rid == "L9" and CLOSE_EXCEPT.search(p[m.start():m.end()]):
+                    continue
                 if rid == "L2":
                     window = p[max(0, m.start() - 8):m.end()]
                     if AXIS_EXCEPT.search(window):

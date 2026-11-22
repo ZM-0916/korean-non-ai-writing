@@ -1,10 +1,17 @@
 {
   "name": "korean-non-ai-writing",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "한국어 글을 AI 티 없이 쓰고 고치는 스킬. 따로 부르지 않아도 한국어 출력 전반에 적용된다.",
-  "author": { "name": "ZM-0916" },
+  "author": {
+    "name": "ZM-0916"
+  },
   "homepage": "https://github.com/ZM-0916/korean-non-ai-writing",
   "repository": "https://github.com/ZM-0916/korean-non-ai-writing",
   "license": "MIT",
-  "keywords": ["korean", "writing", "humanizer", "ai-writing"]
+  "keywords": [
+    "korean",
+    "writing",
+    "humanizer",
+    "ai-writing"
+  ]
 }
