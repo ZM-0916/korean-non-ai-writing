@@ -112,5 +112,21 @@
     "max_count": {
       "L9": 0
     }
+  },
+  "blur_bad.txt": {
+    "must_flag": [
+      "M4"
+    ],
+    "min_count": {
+      "M4": 3
+    }
+  },
+  "blur_ok.txt": {
+    "must_not_flag": [
+      "M4"
+    ],
+    "max_count": {
+      "M4": 0
+    }
   }
 }
