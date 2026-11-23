@@ -11,7 +11,7 @@
       "name": "korean-non-ai-writing",
       "source": "./",
       "description": "한국어 글을 AI 티 없이 쓰고 고치는 스킬. 따로 부르지 않아도 한국어 출력 전반에 적용된다.",
-      "version": "0.4.2",
+      "version": "0.5.0",
       "license": "MIT",
       "keywords": [
         "korean",

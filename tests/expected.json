@@ -145,5 +145,27 @@
     "must_not_flag": [
       "M4"
     ]
+  },
+  "tics2_bad.txt": {
+    "must_flag": [
+      "L10",
+      "L11",
+      "L1"
+    ],
+    "min_count": {
+      "L11": 2
+    }
+  },
+  "tics2_ok.txt": {
+    "must_not_flag": [
+      "L10",
+      "L11",
+      "L1"
+    ],
+    "max_count": {
+      "L10": 0,
+      "L11": 0,
+      "L1": 0
+    }
   }
 }
